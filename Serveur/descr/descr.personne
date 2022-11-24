@@ -1,0 +1,6 @@
+idPersonne::int
+;;
+idEmp::int
+;;
+nom::String
+;;

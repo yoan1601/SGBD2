@@ -1,0 +1,10 @@
+numDept::int
+;;
+idEmp::int
+;;
+nomEmp::String
+;;
+salaire::double
+;;
+manager::int
+;;

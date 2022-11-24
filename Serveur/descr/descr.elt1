@@ -1,0 +1,6 @@
+idElt::int
+;;
+nom::String
+;;
+couleur::String
+;;
