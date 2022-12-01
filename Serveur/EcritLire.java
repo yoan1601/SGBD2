@@ -4,6 +4,7 @@ import java.io.*;
 import java.lang.reflect.Field;
 import java.util.Scanner;
 import java.util.Vector;
+import objets.*;
 
 import inc.Fonction;
 
@@ -15,6 +16,36 @@ public class EcritLire {
     static String location = "ITU";
     static String descRepertoire = "D:/Document/JAVA/S3/SOCKET/SGBD/Serveur/descr/descr.";
     static String tableRepertoire = "D:/Document/JAVA/S3/SOCKET/SGBD/Serveur/database/table.";
+
+    public void ecraser(String nomTable, Table table) throws Exception {
+        File file = new File("database/table." + nomTable);
+        file.delete();
+        Object[][] data = table.getData();
+        for (Object[] o : data) {
+            insert(o, nomTable);
+        } 
+    }
+
+    public void insert(Object [] o, String nomTable) throws Exception {
+        File file = new File("database/table." + nomTable);
+        if(file.exists() == false) file.createNewFile();
+        FileWriter write = new FileWriter((file), true);
+        BufferedWriter buff = new BufferedWriter(write);
+
+        for (Object f : o) {
+            String w = f.toString() + "::";
+            if (w.equals("") || w.equals(" ")) {
+                w = "0";
+            }
+            buff.write(w);
+        }
+        buff.newLine();
+        buff.write(";;");
+        buff.newLine();
+
+        buff.close();
+        System.out.println("insertion du nouveau element dans " + nomTable + " a reussie");
+    }
 
     public void insert(String nomTable, String [] values) throws Exception {
         File file = new File("database");

@@ -12,6 +12,7 @@ public class Main {
 
 
         Fonction f = new Fonction();
+        EcritLire eclire = new EcritLire(); 
         // String requete = "alaivo * itovizana ny elt1 sy elt2"; //intersection
         // String requete = "alaivo nomEmp,salaire ao employe"; //projection
         // String requete = "alaivo * produit ny elt2 sy elt1"; //produit cartesien
@@ -25,7 +26,7 @@ public class Main {
 
         ///////multi-conditions
 
-        String requete = "alaivo * atambatra ny elt1 sy elt2 izay idElt >= 5 ary couleur like c ary idElt < 9"; //union
+        // String requete = "alaivo * atambatra ny elt1 sy elt2 izay idElt >= 5 ary couleur like c ary idElt < 9"; //union
         // String requete = "alaivo * itovizana ny elt1 sy elt2   izay couleur = noir"; //intersection
         // String requete = "alaivo * ampifandraiso ny elt2 sy elt1 izay elt2->couleur like c ary elt1->couleur like noir ary elt2->nom like 6"; //natural join
         // String requete = "alaivo * produit ny elt1 sy elt2 izay elt2->idElt >= 7 ary elt1->couleur like blanc"; //produit cartesien
@@ -41,14 +42,47 @@ public class Main {
         ////Insert 
         // String requete = "insert ao newTable values ( val1, val2, val3 )";
 
+        // update : reparer les subStrings de update et subString de condition
+        // req : update nomTable ataovy [nomCol = value] izay [nomColCondition = valueCondition]
+        String requete = "update personne ataovy idEmp = good izay idPersonne = 3";
+        
+        // String [][] wheresUpdate = Fonction.getwheresUpdate(requete, set, where, and);
+        // String [][] setsUpdate = Fonction.getsetsUpdate(requete, set, where, and);
+        // Object[][] data = eclire.lire("personne");
+        // Object[] entete = eclire.getEnteteTableInFile("personne");
+        // Table table = new Table(entete, data);
+        // table.setNom("personne");
+
+        // System.out.println("wheres update");
+        // for (String[] wheres : wheresUpdate) {
+        //     System.out.println(wheres[0] + " " + wheres[1]+ " " + wheres[2]);
+        // }
+
+        // System.out.println("sets update");
+        // for (String[] sets : setsUpdate) {
+        //     System.out.println(sets[0] + " " + sets[1]+ " " + sets[2]);
+        // }
+
+        //insert
+        // String requete = "insert ao nomTable ireto ( 6, Elt69, c69 ) ";
+
+
+        //delete 
+        // requete = "delete ao nomTable izay nom = jean";
+
         try {
             Table relation = f.traiterRequete(requete);
-            f.displayAll(relation);
+            f.display(relation);
+            // f.displayAll(relation);
             // relation = f.traiterRequete(requeteInsc);
             // f.displayAll(relation);
             // relation = f.traiterRequete(requete);
             //f.displayAll(relation);
             //f.setDatabaseToFile(); Je t'aime pas
+            // int [] listeIndice = f.getIndiceColUpdate(table, setsUpdate);
+            // for (int i : listeIndice) {
+            //     System.out.println(i);
+            // }
         } catch (Exception e) {
             System.out.println(e.fillInStackTrace());
         }

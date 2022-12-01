@@ -78,7 +78,8 @@ public class Client {
 
                                 Table relation = (Table) relationObj;
 
-                                f.displayAll(relation);
+                                // f.displayAll(relation);
+                                f.display(relation);
 
                             } catch (Exception e) {
                                 System.err.println(e);

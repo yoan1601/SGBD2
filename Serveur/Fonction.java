@@ -11,6 +11,111 @@ import java.lang.reflect.*;
 
 public class Fonction {
 
+    public Table update(Table table, String [][] setsUpdate, String [][] wheresUpdate) throws Exception {
+        int [] indColUpdate = getIndiceCol(table, setsUpdate);
+        int [] indLigneUpdate = getIndiceLigne(table, wheresUpdate);
+
+        Object [] entete = table.getEntete();
+        Object [][] data = table.getData();
+
+        for (int i = 0; i < indLigneUpdate.length; i++) {
+            for (int j = 0; j < indColUpdate.length; j++) {
+                data[indLigneUpdate[i]][indColUpdate[j]] = setsUpdate[j][2];
+            }
+        }
+
+        Table rep = new Table(entete, data);
+        rep.setNom(table.getNom());
+
+        EcritLire e = new EcritLire();
+        e.ecraser(table.getNom(), rep);
+
+        return rep;
+    }
+
+    public int [] getIndiceLigne (Table table, String [][] wheresUpdate) throws Exception{
+        Vector indVect = new Vector();
+        int [] indCol = getIndiceCol(table, wheresUpdate);
+        int nbCol = indCol.length;
+        Object[][] data = table.getData();
+        
+        for (int i = 0; i < data.length; i++) {
+            for (int j = 0; j < nbCol; j++) {
+                if(data[i][indCol[j]].toString().equals(wheresUpdate[j][2]) == false) break;
+                if(j == nbCol - 1) indVect.add(i);
+            }
+        }
+
+        int [] rep = vectToTabInt(indVect);
+        return rep;
+    }
+    public int [] vectToTabInt(Vector v) throws Exception {
+        if(v.size() == 0) throw new Exception("Vecto size 0 -> vectToTabInt");
+        int [] rep = new int[v.size()];
+        for (int i = 0; i < v.size(); i++) {
+            rep[i] = (int) v.get(i);
+        }
+        return rep;
+    }
+
+    public int [] getIndiceCol (Table table, String [][] setsUpdate) throws Exception {
+        Vector indVect = new Vector();
+        Object[] colonnes = table.getEntete();
+        for (int j = 0; j < setsUpdate.length; j++) {
+            for (int j2 = 0; j2 < colonnes.length; j2++) {
+                if(colonnes[j2].toString().equalsIgnoreCase(setsUpdate[j][0]) == true) {
+                    indVect.add(j2);
+                }
+            }
+        }
+        int [] rep = vectToTabInt(indVect);
+        return rep;
+    }
+
+    public static String[] decompose(String str) {
+        String [] strSplit = str.split(" ");
+        String [] strTrim = trimAll(strSplit);
+        return strTrim;
+    }
+
+    public static String[][] getwheresUpdate(String requete, String set, String where, String and) {
+
+        String [] setSplit = requete.split(set);
+        String [] whereSplit = setSplit[1].split(where);
+       
+        String wheres = whereSplit[1];
+
+        String [] whereTab = wheres.split(and);
+
+        String [] whereDecomp = Fonction.decompose(whereTab[0]); // [0] col ; [1] operateur ; [2] value
+
+        String [][] wheresUpdate = new String[whereTab.length][whereDecomp.length];
+        for (int i = 0; i < wheresUpdate.length; i++) {
+            wheresUpdate[i] = Fonction.decompose(whereTab[i]);
+        }
+
+        return wheresUpdate;
+    }
+
+    public static String[][] getsetsUpdate(String requete, String set, String where, String and) {
+
+        String [] setSplit = requete.split(set);
+        String [] whereSplit = setSplit[1].split(where);
+        String sets = whereSplit[0];
+        // String wheres = whereSplit[1];
+
+        String [] setTab = sets.split(and);
+
+        String [] setDecomp = Fonction.decompose(setTab[0]); // [0] col ; [1] operateur ; [2] value
+
+        String [][] setsUpdate = new String[setTab.length][setDecomp.length];
+        for (int i = 0; i < setsUpdate.length; i++) {
+            setsUpdate[i] = Fonction.decompose(setTab[i]);
+        }
+
+        return setsUpdate;
+    }
+
     public static String [] getValuesInsert (String requete) {
         String colTypeBloc = requete.substring(requete.lastIndexOf("(") + 1, requete.lastIndexOf(")"));
         String[] colTypeParsed = colTypeBloc.split(",");
@@ -165,21 +270,22 @@ public class Fonction {
     }
 
     public Grammaire[] getMotsCles() {
-        Grammaire atambatra = new Grammaire("atambatra");
-        Grammaire itovizana = new Grammaire("itovizana");
-        Grammaire aoe = new Grammaire("ao");
-        Grammaire ny = new Grammaire("ny");
-        Grammaire sy = new Grammaire("sy");
-        Grammaire ampifandraiso = new Grammaire("ampifandraiso");
-        Grammaire produit = new Grammaire("produit");
-        Grammaire analana = new Grammaire("analana"); // difference
-        Grammaire aminy = new Grammaire("@");
-        Grammaire division = new Grammaire("division");
+        Grammaire atambatra = new Grammaire("atambatra"); // 0
+        Grammaire itovizana = new Grammaire("itovizana"); // 1
+        Grammaire aoe = new Grammaire("ao"); // 2
+        Grammaire ny = new Grammaire("ny"); 
+        Grammaire sy = new Grammaire("sy"); // 3
+        Grammaire ampifandraiso = new Grammaire("ampifandraiso"); //4
+        Grammaire produit = new Grammaire("produit"); //5
+        Grammaire analana = new Grammaire("analana"); // difference //6
+        Grammaire aminy = new Grammaire("@"); //7
+        Grammaire division = new Grammaire("division"); //8
+        Grammaire ataovy = new Grammaire("ataovy"); //9
         atambatra.setNext(ny);
         itovizana.setNext(ny);
         ampifandraiso.setNext(ny);
         produit.setNext(ny);
-        Grammaire[] rep = { atambatra, itovizana, aoe, sy, ampifandraiso, produit, analana, aminy, division };
+        Grammaire[] rep = { atambatra, itovizana, aoe, sy, ampifandraiso, produit, analana, aminy, division, ataovy };
         return rep;
     }
 
@@ -192,12 +298,14 @@ public class Fonction {
         // System.out.print(string);
         // }
         Grammaire[] grammPrincipaux = getGrammairesPrincipaux();
+        Grammaire[] motsCles = getMotsCles();
         Table relation = new Table();
         EcritLire ec = new EcritLire();
 
         ///// conditions
         String where = "izay";
         String and = "ary";
+        String set = "ataovy";
 
         // bloc 1 tsy mitovy "alaivo"
         if (requeteDecomp[0].equalsIgnoreCase(grammPrincipaux[0].getSyntaxe()) == false) { // else de alaivo
@@ -244,6 +352,31 @@ public class Fonction {
                     throw new Exception("requete invalide a partir de " + requeteDecomp[1]);
                 }
             }
+
+            else if(requeteDecomp[0].equalsIgnoreCase(grammPrincipaux[9].getSyntaxe()) == true) { //update
+                String nomTable = requeteDecomp[1];
+                if (ec.isInDatabase(nomTable) == true) {
+                    if(requeteDecomp[2].equalsIgnoreCase(motsCles[9].getSyntaxe()) == true) { //ataovy
+                        String [][] setsUpdate = getsetsUpdate(requete, set, where, and); //les a updater  
+                        String [][] wheresUpdate = getwheresUpdate(requete, set, where, and); 
+                        Object[][] data = ec.lire(nomTable);
+                        Object[] entete = ec.getEnteteTableInFile(nomTable);
+                        Table table = new Table(entete, data);
+                        table.setNom(nomTable);
+                        Table update = update(table, setsUpdate, wheresUpdate);
+                        return update;
+                    }
+                    else {
+                        throw new Exception("requete invalide a partir de " + requeteDecomp[2]);
+                    }
+                }
+                else {
+                    throw new Exception("aucun database ne correspond a " + nomTable);
+                }
+            }
+            else {
+                throw new Exception("requete invalide a partir de " + requeteDecomp[0]);
+            }
         }
 
         else {
@@ -257,7 +390,6 @@ public class Fonction {
             // bloc 2 == "*"
             if (requeteDecomp[1].equalsIgnoreCase(grammPrincipaux[1].getSyntaxe()) == true) {
                 // System.out.println("bloc 2 == '*'");
-                Grammaire[] motsCles = getMotsCles();
                 // union "atambatra"
                 if (requeteDecomp[2].equalsIgnoreCase(motsCles[0].getSyntaxe()) == true) {
                     if (requeteDecomp[3].equalsIgnoreCase(motsCles[0].getNext().getSyntaxe()) == true) { // ny
@@ -686,8 +818,9 @@ public class Fonction {
         Grammaire table = new Grammaire("table"); //6
         Grammaire values = new Grammaire("values"); //7
         Grammaire insert = new Grammaire("insert"); //8
+        Grammaire update = new Grammaire("update"); //9
 
-        Grammaire[] rep = { alaivo, etoile, ny, sy, ao, create, table ,values, insert };
+        Grammaire[] rep = { alaivo, etoile, ny, sy, ao, create, table ,values, insert, update };
         return rep;
     }
 
@@ -1351,6 +1484,44 @@ public class Fonction {
             System.out.println("No result fetch the request");
             System.out.println();
         }
+    }
+
+    public String generateSpaceBetweenCOl(String value,int nbSpace){
+        String space = " ";
+        for(int i=1;i<nbSpace;i++){
+            space = space+" ";
+        }
+        String result = value+space;
+        return result;
+    }
+    public String intoTableValue(String value){
+        int size = 10;
+        int valSize = value.length();
+        String result = this.generateSpaceBetweenCOl(value,size-valSize);
+        result = "|"+result;
+        return result;
+    }
+    
+    public void afficheNomCol(Table table){
+        Object[] colonnes = table.getEntete();
+        for(int i=0;i<colonnes.length;i++){
+            System.out.print(this.intoTableValue(colonnes[i].toString()));
+        }
+        System.out.println();
+    }
+    public void afficheValue(Table table){
+        Object[][] data = table.getData();
+        for(int i=0;i<data.length;i++){
+            for(int j=0;j<data[i].length;j++){
+                System.out.print(this.intoTableValue(data[i][j].toString()));
+            }
+            System.out.println();
+        }
+    }
+
+    public void display(Table table) {
+        afficheNomCol(table);
+        afficheValue(table);
     }
 
 }

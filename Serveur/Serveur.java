@@ -85,7 +85,8 @@ public class Serveur {
                                 mpSent.writeObject(obj); // envoie de l'obj
 
                                 System.out.println("Server : relation sent");
-                                f.displayAll(relation);
+                                // f.displayAll(relation);
+                                f.display(relation);
 
                             } catch (Exception e) {
                                 System.err.println(e);
