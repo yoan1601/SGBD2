@@ -415,6 +415,18 @@ public class Fonction {
                 }
             }
 
+            else if(requeteDecomp[0].equalsIgnoreCase(grammPrincipaux[11].getSyntaxe()) == true) {
+                System.out.println("manuel");
+                String nomTable = "manuel";
+                Object [] entete = ec.getEnteteTableInFile(nomTable);
+                System.out.println("entete manuel obtenu");
+                Object [][] data = ec.lire(nomTable);
+                System.out.println("data manuel obtenu");
+                Table t = new Table(entete, data);
+                t.setNom(nomTable);
+                return t;
+            }
+
             else {
                 throw new Exception("requete invalide a partir de " + requeteDecomp[0]);
             }
@@ -833,6 +845,7 @@ public class Fonction {
             throw new Exception("Vector.size() = 0 -> vectorToObj2Dim");
         Object[] dataTemp = (Object[]) v.get(0);
         Object[][] rep = new Object[v.size()][dataTemp.length];
+        System.out.println("v.size() "+v.size()+" dataTemp.length "+dataTemp.length);
         for (int i = 0; i < v.size(); i++) {
             Object[] ligne = new Object[dataTemp.length];
             for (int j = 0; j < dataTemp.length; j++) {
@@ -870,8 +883,9 @@ public class Fonction {
         Grammaire insert = new Grammaire("insert"); //8
         Grammaire update = new Grammaire("update"); //9
         Grammaire delete = new Grammaire("delete"); //10
+        Grammaire manuel = new Grammaire("manuel"); //11
 
-        Grammaire[] rep = { alaivo, etoile, ny, sy, ao, create, table ,values, insert, update, delete };
+        Grammaire[] rep = { alaivo, etoile, ny, sy, ao, create, table ,values, insert, update, delete, manuel };
         return rep;
     }
 

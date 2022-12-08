@@ -65,7 +65,7 @@ public class Serveur {
                     try {
                         requete = in.readLine();
                         // tant que le client est connecté
-                                
+                        
                         OutputStream os = clientSocket.getOutputStream(); // send message au client
 
                         ObjectOutputStream mpSent = new ObjectOutputStream(os); // pour l'envoie de l'objet
@@ -74,6 +74,8 @@ public class Serveur {
 
                             try {
                                 System.out.println("Client : " + requete);
+
+                                if(requete.equalsIgnoreCase("quit")) break;
 
                                 Table relation = f.traiterRequete(requete);
 

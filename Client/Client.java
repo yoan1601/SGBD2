@@ -44,9 +44,20 @@ public class Client {
                 public void run() {
                     while (true) {
                         msg = sc.nextLine();
+                        if(msg.equalsIgnoreCase("quit") == true) {
+                            break;
+                        }
+                        System.out.println();
                         out.println(msg);
                         out.flush();
                     }
+                    System.out.println("bye");
+                    // try {
+                    //     out.close(); 
+                    //     clientSocket.close();
+                    // } catch (Exception e) {
+                    //     //System.err.println(e);
+                    // }
                 }
             });
             envoyer.start(); 
@@ -80,6 +91,7 @@ public class Client {
 
                                     // f.displayAll(relation);
                                     f.display(relation);
+                                    System.out.println();
                                 }
                                 else if(relationObj instanceof Exception) {
                                     Exception e = (Exception) relationObj;

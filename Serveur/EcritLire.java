@@ -272,6 +272,7 @@ public class EcritLire {
             scan.next();
         }
         Object[][] bigDataVeryBig = f.vectorToObj2Dim(bigData);
+        // System.out.println("phase vector -> object[][] ended ");
         scan.close();
         return bigDataVeryBig;
     }

@@ -1,0 +1,24 @@
+create::create_table_nomTable_(_colonne1_type1_,_...,_colonneN_typeN_)::
+;;
+update::update_nomTable_ataovy_colonneN_=_valN [ary_..._izay_colonneM_=_valM]::
+;;
+insert::insert_ao_nomTable_values_(_val1,_val2,_val3_)::
+;;
+delete::delete_ao_nomTable_izay_colonneN_=_N_[ary_..._]::
+;;
+intersec::alaivo_*_itovizana_ny_nomTable1_sy_nomTable2_[__..._[ary_..._]]::
+;;
+union::alaivo_*_atambatra_ny_nomTable1_sy_nomTable2_[izay_..._[ary_..._]]::
+;;
+Njoin::alaivo_*_ampifandraiso_ny_nomTable1_sy_nomTable2_[izay_..._[ary_..._]]::
+;;
+produit::alaivo_*_produit_ny_nomTable1_sy_nomTable2_[izay_nomTableN->colonneN_=_valN_..._[ary_..._]]::
+;;
+diff::alaivo_*_analana_ny_nomTable1_@_nomTable2_[izay_..._[ary_..._]]::
+;;
+division::alaivo_*_division_ny_nomTable1_@_nomTable2_[izay_..._[ary_..._]]::
+;;
+project::alaivo_colone1,_...,colonne2_ao_nomTable::
+;;
+selection::alaivo_*_ao_nomTable [izay _... [ary _... ]]::
+;;
