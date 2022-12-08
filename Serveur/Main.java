@@ -19,6 +19,7 @@ public class Main {
         // String requete = "alaivo * ampifandraiso ny elt2 sy elt1"; //natural join
         // String requete = "alaivo * atambatra ny elt1 sy elt2"; //union
         // String requete = "   alaivo * ao     elt1 izay idElt >  1  "; //selection
+        String requete = "   alaivo * ao     elt1 "; //selection all
         // String requete = "alaivo * analana ny elt1 @ elt2"; //difference
         // String requeteCours = "alaivo idCours,cours ao cours2";
         // String requeteInsc = "alaivo nom,prenom,cours ao inscription";
@@ -44,7 +45,7 @@ public class Main {
 
         // update : reparer les subStrings de update et subString de condition
         // req : update nomTable ataovy [nomCol = value] izay [nomColCondition = valueCondition]
-        String requete = "update personne ataovy idEmp = good izay idPersonne = 3";
+        // String requete = "update personne ataovy idEmp = good izay idPersonne = 3";
         
         // String [][] wheresUpdate = Fonction.getwheresUpdate(requete, set, where, and);
         // String [][] setsUpdate = Fonction.getsetsUpdate(requete, set, where, and);
@@ -64,11 +65,11 @@ public class Main {
         // }
 
         //insert
-        // String requete = "insert ao nomTable ireto ( 6, Elt69, c69 ) ";
+        //String requete = "insert ao newTable ireto ( 2, Bro, sis ) ";
 
 
         //delete 
-        // requete = "delete ao nomTable izay nom = jean";
+        // String requete = "delete ao newTable izay colonne1 = 1";
 
         try {
             Table relation = f.traiterRequete(requete);
@@ -97,13 +98,13 @@ public class Main {
         // Personne p4 = new Personne(4, 4, "p4");
         // // ec.insert(p4, "personne");
 
-        Object[] entete1 = ec.getEnteteTableInFile("inscription");
-        Object[][]data1 = ec.lire("inscription");
-        Table t1 = new Table(entete1, data1);
+        // Object[] entete1 = ec.getEnteteTableInFile("inscription");
+        // Object[][]data1 = ec.lire("inscription");
+        // Table t1 = new Table(entete1, data1);
 
-        Object[] entete2 = ec.getEnteteTableInFile("cours");
-        Object[][]data2 = ec.lire("cours");
-        Table t2 = new Table(entete2, data2);
+        // Object[] entete2 = ec.getEnteteTableInFile("cours");
+        // Object[][]data2 = ec.lire("cours");
+        // Table t2 = new Table(entete2, data2);
 
         // f.displayAll(t1);
         // f.displayAll(t2);
@@ -114,7 +115,7 @@ public class Main {
         //     System.out.println(i);
         // }
         // Table t = f2.division(t1, t2);
-        System.out.println("hello git");
+        //System.out.println("hello git");
 
     }
 

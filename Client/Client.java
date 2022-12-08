@@ -75,11 +75,16 @@ public class Client {
                                 Object relationObj  = relationObjIs.readObject(); //lecture de l'objet envoyé
 
                                 // Object relationObj  = relationObjIs.readUnshared(); //lecture de l'objet envoyé
+                                if(relationObj instanceof Table) {
+                                    Table relation = (Table) relationObj;
 
-                                Table relation = (Table) relationObj;
-
-                                // f.displayAll(relation);
-                                f.display(relation);
+                                    // f.displayAll(relation);
+                                    f.display(relation);
+                                }
+                                else if(relationObj instanceof Exception) {
+                                    Exception e = (Exception) relationObj;
+                                    System.out.println(e.getLocalizedMessage());
+                                }
 
                             } catch (Exception e) {
                                 System.err.println(e);

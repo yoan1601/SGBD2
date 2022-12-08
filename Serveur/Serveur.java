@@ -26,6 +26,7 @@ public class Serveur {
         final PrintWriter out;
         final Scanner sc = new Scanner(System.in);
         String ipWithDongle = "192.168.10.174";
+        String ipSansDongle = "192.168.10.163";
         String local = "localhost";
         int port = 1793;
 
@@ -90,6 +91,8 @@ public class Serveur {
 
                             } catch (Exception e) {
                                 System.err.println(e);
+
+                                mpSent.writeObject(e);
                             }
 
                             requete = in.readLine();

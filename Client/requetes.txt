@@ -1,0 +1,32 @@
+// String requete = "alaivo * itovizana ny elt1 sy elt2"; //intersection
+        // String requete = "alaivo nomEmp,salaire ao employe"; //projection
+        // String requete = "alaivo * produit ny elt2 sy elt1"; //produit cartesien
+        // String requete = "alaivo * ampifandraiso ny elt2 sy elt1"; //natural join
+        // String requete = "alaivo * atambatra ny elt1 sy elt2"; //union
+        // String requete = "   alaivo * ao     elt1 izay idElt >  1  "; //selection
+        // String requete = "alaivo * analana ny elt1 @ elt2"; //difference
+        // String requeteCours = "alaivo idCours,cours ao cours2";
+        // String requeteInsc = "alaivo nom,prenom,cours ao inscription";
+        // String requete = "alaivo * division ny inscription @ cours2"; //division
+
+        ///////multi-conditions
+
+        // String requete = "alaivo * atambatra ny elt1 sy elt2 izay idElt >= 5 ary couleur like c ary idElt < 9"; //union
+        // String requete = "alaivo * itovizana ny elt1 sy elt2   izay couleur = noir"; //intersection
+        // String requete = "alaivo * ampifandraiso ny elt2 sy elt1 izay elt2->couleur like c ary elt1->couleur like noir ary elt2->nom like 6"; //natural join
+        // String requete = "alaivo * produit ny elt1 sy elt2 izay elt2->idElt >= 7 ary elt1->couleur like blanc"; //produit cartesien
+        // String requete = "alaivo * produit ny elt1 sy elt2 izay couleur like blanc"; //produit cartesien
+        // String requete = "alaivo * analana ny elt1 @ elt2 izay couleur like bleu"; //difference
+        // String requete = "alaivo * division ny inscription @ cours2 izay nom like T"; //division
+
+
+        /////Create table
+        // String requete = "create table newTable ( colonne1 type1 , colonne2 type2 , colonne3 type3 )";
+        // String requete = "create table rebeka ( fahazazana int , fahamanjana string , fahaizana double )";
+
+        ////Insert 
+        // String requete = "insert ao newTable values ( val1, val2, val3 )";
+
+        // update : reparer les subStrings de update et subString de condition
+        // req : update nomTable ataovy [nomCol = value] izay [nomColCondition = valueCondition]
+        String requete = "update personne ataovy idEmp = good izay idPersonne = 3";

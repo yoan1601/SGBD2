@@ -315,7 +315,7 @@ public class Fonction {
                 if(requeteDecomp[1].equalsIgnoreCase(grammPrincipaux[6].getSyntaxe()) == true) { //table
                     String nomTable = requeteDecomp[2]; //nomTable
                     int tailleReq = requeteDecomp.length;
-                    if(requeteDecomp[tailleReq - 1].equalsIgnoreCase(")") == true) { //si requete creqte se termine par ")"
+                    if(requeteDecomp[tailleReq - 1].equalsIgnoreCase(")") == true) { //si requete create se termine par ")"
                         String [][] colType = getColType(requete);
                         ec.EcritDescr(nomTable, colType);
                         Object[] descCreated = ec.getEnteteTableInFile(nomTable);
@@ -374,6 +374,47 @@ public class Fonction {
                     throw new Exception("aucun database ne correspond a " + nomTable);
                 }
             }
+            
+            else if(requeteDecomp[0].equalsIgnoreCase(grammPrincipaux[10].getSyntaxe()) == true) { //delete
+                if(requeteDecomp[1].equalsIgnoreCase(motsCles[2].getSyntaxe()) == true) { //ao
+                    String nomTable = requeteDecomp[2];
+                    if(ec.isInDatabase(nomTable) == true) {
+                        Object[] entete = ec.getEnteteTableInFile(nomTable);
+                        Object[][]data = ec.lire(nomTable);
+                        Table table = new Table(entete,data);
+                        table.setNom(nomTable);
+                        FonctionV2 f2 = new FonctionV2();
+
+                        if(requeteDecomp.length > 3) {
+                            if(requeteDecomp[3].equalsIgnoreCase(where) == true) {
+                                String[][] condDecomp = getConditions(requete, where, and);
+                                Table tableSelected = traiterCondition(table, condDecomp);
+                                Table rep = f2.difference(table, tableSelected);
+                                rep.setNom(table.getNom());
+                                ec.ecraser(nomTable, rep);
+                                return rep; 
+                            }
+                            else {
+                                throw new Exception("requete invalide a partir de " + requeteDecomp[3]);
+                            }
+                        }
+                        else {
+                            Object[][]vide = new Object[1][1];
+                            vide[0][0] = "";
+                            Table rep = new Table(table.getEntete(), vide);
+                            ec.vider(nomTable);
+                            return rep;
+                        }
+                    }
+                    else {
+                        throw new Exception("aucun database ne correspond a " + nomTable);
+                    }
+                }
+                else {
+                    throw new Exception("requete invalide a partir de " + requeteDecomp[1]);
+                }
+            }
+
             else {
                 throw new Exception("requete invalide a partir de " + requeteDecomp[0]);
             }
@@ -471,21 +512,30 @@ public class Fonction {
                     String table = requeteDecomp[3];
                     if (ec.isInDatabase(table) == true) {
                         // String where = "izay";
-                        if (requeteDecomp[4].equalsIgnoreCase(where) == true) {
-                            String colonne = requeteDecomp[5];
-                            if (ec.isColonneExist(colonne, table) == true) {
-                                String operateur = requeteDecomp[6];
-                                Object[] colonnes = ec.getEnteteTableInFile(table);
-                                Object[][] data = ec.lire(table);
-                                Table selectAll = new Table(table, colonnes, data);
-                                selectAll.setNom(table);
-                                String condition = requeteDecomp[7];
-                                FonctionV2 f2 = new FonctionV2();
+                        if(requeteDecomp.length > 4) {
+                            if (requeteDecomp[4].equalsIgnoreCase(where) == true) {
+                                String colonne = requeteDecomp[5];
+                                if (ec.isColonneExist(colonne, table) == true) {
+                                    String operateur = requeteDecomp[6];
+                                    Object[] colonnes = ec.getEnteteTableInFile(table);
+                                    Object[][] data = ec.lire(table);
+                                    Table selectAll = new Table(table, colonnes, data);
+                                    selectAll.setNom(table);
+                                    String condition = requeteDecomp[7];
+                                    FonctionV2 f2 = new FonctionV2();
 
-                                return f2.selection(selectAll, colonne, operateur, condition);
-                            }
-                        } else
-                            throw new Exception("requete invalide a partir de " + requeteDecomp[4]);
+                                    return f2.selection(selectAll, colonne, operateur, condition);
+                                }
+                            } 
+                        }
+                        else {
+                            Object[] entete = ec.getEnteteTableInFile(table);
+                            Object[][] data = ec.lire(table);
+                            Table all = new Table(entete, data);
+                            return all;
+                        }
+                        // else
+                        //     throw new Exception("requete invalide a partir de " + requeteDecomp[4]);
                     }
                 }
                 // jointure "ampifandraiso" natural join --> misy colonne 1 itovizana
@@ -819,8 +869,9 @@ public class Fonction {
         Grammaire values = new Grammaire("values"); //7
         Grammaire insert = new Grammaire("insert"); //8
         Grammaire update = new Grammaire("update"); //9
+        Grammaire delete = new Grammaire("delete"); //10
 
-        Grammaire[] rep = { alaivo, etoile, ny, sy, ao, create, table ,values, insert, update };
+        Grammaire[] rep = { alaivo, etoile, ny, sy, ao, create, table ,values, insert, update, delete };
         return rep;
     }
 

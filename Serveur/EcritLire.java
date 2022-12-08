@@ -11,11 +11,17 @@ import inc.Fonction;
 public class EcritLire {
 
     // static String location = "Home";
-    // static String descRepertoire = "E:/JAVA/S3/SOCKET/SGBD/descr/descr.";
-    // static String tableRepertoire = "E:/JAVA/S3/SOCKET/SGBD/database/table.";
+    // static String descRepertoire = "E:/DOSSIERS/ITU/JAVA/S3/SOCKET/SGBD/Serveur//descr/descr.";
+    // static String tableRepertoire = "E:/DOSSIERS/ITU/JAVA/S3/SOCKET/SGBD/Serveur//database/table.";
     static String location = "ITU";
-    static String descRepertoire = "D:/Document/JAVA/S3/SOCKET/SGBD/Serveur/descr/descr.";
-    static String tableRepertoire = "D:/Document/JAVA/S3/SOCKET/SGBD/Serveur/database/table.";
+    static String descRepertoire = "C:/Users/ITU/Documents/GitHub/SGBD/Serveur/descr/descr.";
+    static String tableRepertoire = "C:/Users/ITU/Documents/GitHub/SGBD/Serveur/database/table.";
+
+    public void vider(String nomTable) throws Exception {
+        File file = new File("database/table." + nomTable);
+        file.delete();
+        file.createNewFile();
+    }
 
     public void ecraser(String nomTable, Table table) throws Exception {
         File file = new File("database/table." + nomTable);
