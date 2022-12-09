@@ -16,6 +16,22 @@ public class EcritLire {
     static String location = "ITU";
     static String descRepertoire = "C:/Users/ITU/Documents/GitHub/SGBD/Serveur/descr/descr.";
     static String tableRepertoire = "C:/Users/ITU/Documents/GitHub/SGBD/Serveur/database/table.";
+    static String tableDir = "C:/Users/ITU/Documents/GitHub/SGBD/Serveur/database";
+
+    public static String [] listTables() throws Exception {
+        File f = new File(tableDir);
+        File [] lf = f.listFiles();
+        String [] listNameFile = new String[lf.length];
+        
+        int i = 0;
+        for (File file : lf) {
+            String fileName = file.getName().split("\\.")[1]; //table.[nomtable]
+            listNameFile[i] = fileName;
+            i++;
+        }
+        
+        return listNameFile;
+    }
 
     public void vider(String nomTable) throws Exception {
         File file = new File("database/table." + nomTable);

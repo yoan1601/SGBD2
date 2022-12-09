@@ -26,6 +26,7 @@ public class Serveur {
             // final Scanner sc = new Scanner(System.in);
             String ipWithDongle = "192.168.10.174";
             String ipSansDongle = "192.168.10.163";
+	    String nouveauIP = "192.168.10.115";
             String local = "localhost";
             int port = 1793;
 

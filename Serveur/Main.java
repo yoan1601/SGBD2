@@ -1,5 +1,6 @@
 package main;
 
+import java.io.File;
 import java.util.Vector;
 
 import inc.Fonction;
@@ -72,8 +73,8 @@ public class Main {
         // String requete = "delete ao newTable izay colonne1 = 1";
 
         try {
-            Table relation = f.traiterRequete(requete);
-            f.display(relation);
+            // Table relation = f.traiterRequete(requete);
+            // f.display(relation);
             // f.displayAll(relation);
             // relation = f.traiterRequete(requeteInsc);
             // f.displayAll(relation);
@@ -108,6 +109,10 @@ public class Main {
 
         // f.displayAll(t1);
         // f.displayAll(t2);
+        String [] lf = EcritLire.listTables();
+        for (String string : lf) {
+            System.out.println(string);
+        }
 
         FonctionV2 f2 = new FonctionV2();
         // int[] indCol = f2.getIndCommonCol(t1, t2);

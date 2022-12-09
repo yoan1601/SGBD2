@@ -415,7 +415,7 @@ public class Fonction {
                 }
             }
 
-            else if(requeteDecomp[0].equalsIgnoreCase(grammPrincipaux[11].getSyntaxe()) == true) {
+            else if(requeteDecomp[0].equalsIgnoreCase(grammPrincipaux[11].getSyntaxe()) == true) { // manuel
                 System.out.println("manuel");
                 String nomTable = "manuel";
                 Object [] entete = ec.getEnteteTableInFile(nomTable);
@@ -425,6 +425,22 @@ public class Fonction {
                 Table t = new Table(entete, data);
                 t.setNom(nomTable);
                 return t;
+            }
+
+            else if(requeteDecomp[0].equalsIgnoreCase(grammPrincipaux[12].getSyntaxe()) == true) { // show tables
+                if(requeteDecomp[1].equalsIgnoreCase("tables") == true) {
+                    String [] listetables = EcritLire.listTables();
+                    Object[] entete = {"the tables"};
+                    Object[][] data = new Object[listetables.length][1];
+                    for (int i = 0; i < data.length; i++) {
+                        data[i][0] = listetables[i];
+                    }
+                    Table rep = new Table(entete, data);
+                    return rep;
+                }
+                else {
+                    throw new Exception("requete invalide a partir de " + requeteDecomp[1]);
+                }
             }
 
             else {
@@ -884,8 +900,9 @@ public class Fonction {
         Grammaire update = new Grammaire("update"); //9
         Grammaire delete = new Grammaire("delete"); //10
         Grammaire manuel = new Grammaire("manuel"); //11
+        Grammaire show = new Grammaire("show"); //12
 
-        Grammaire[] rep = { alaivo, etoile, ny, sy, ao, create, table ,values, insert, update, delete, manuel };
+        Grammaire[] rep = { alaivo, etoile, ny, sy, ao, create, table ,values, insert, update, delete, manuel, show };
         return rep;
     }
 
