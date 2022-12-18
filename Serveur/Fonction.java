@@ -391,7 +391,13 @@ public class Fonction {
                                 Table tableSelected = traiterCondition(table, condDecomp);
                                 Table rep = f2.difference(table, tableSelected);
                                 rep.setNom(table.getNom());
-                                ec.ecraser(nomTable, rep);
+                                
+								if(rep.getEntete()[0].toString().equalsIgnoreCase("Avis important")) {
+									ec.vider(nomTable);
+								}
+								
+								else ec.ecraser(nomTable, rep);
+								
                                 return rep; 
                             }
                             else {
