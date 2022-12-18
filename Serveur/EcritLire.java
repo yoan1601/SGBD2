@@ -10,13 +10,16 @@ import inc.Fonction;
 
 public class EcritLire {
 
-    // static String location = "Home";
-    // static String descRepertoire = "E:/DOSSIERS/ITU/JAVA/S3/SOCKET/SGBD/Serveur//descr/descr.";
-    // static String tableRepertoire = "E:/DOSSIERS/ITU/JAVA/S3/SOCKET/SGBD/Serveur//database/table.";
-    static String location = "ITU";
-    static String descRepertoire = "C:/Users/ITU/Documents/GitHub/SGBD/Serveur/descr/descr.";
-    static String tableRepertoire = "C:/Users/ITU/Documents/GitHub/SGBD/Serveur/database/table.";
-    static String tableDir = "C:/Users/ITU/Documents/GitHub/SGBD/Serveur/database";
+    static String location = "Home";
+    static String descRepertoire = "C:/Users/Asus/Documents/Github/SGBD2/Serveur/descr/descr.";
+    static String tableRepertoire = "C:/Users/Asus/Documents/Github/SGBD2/Serveur/database/table.";
+    static String tableDir = "C:/Users/Asus/Documents/Github/SGBD2/Serveur/database";    
+
+    //static String location = "ITU";
+    //static String descRepertoire = "C:/Users/ITU/Documents/GitHub/SGBD/Serveur/descr/descr.";
+    //static String tableRepertoire = "C:/Users/ITU/Documents/GitHub/SGBD/Serveur/database/table.";
+    
+    //static String tableDir = "C:/Users/ITU/Documents/GitHub/SGBD/Serveur/database";
 
     public static String [] listTables() throws Exception {
         File f = new File(tableDir);
